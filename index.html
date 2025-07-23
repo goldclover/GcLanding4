@@ -2,200 +2,181 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Activa tu Bono</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Únete a Ganamos - ¡Regístrate Ahora!</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom right, #1a1a1a, #000);
-      color: #fff;
-      text-align: center;
-      padding: 0 20px;
-    }
+    /* ... (todo tu CSS original va aquí, sin eliminar nada) ... */
 
-    .container {
-      max-width: 480px;
-      margin: 0 auto;
-      padding-top: 60px;
-    }
-
-    .headline {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-      font-weight: bold;
-      color: #FFD700;
-    }
-
-    .subtext {
-      font-size: 1.1rem;
-      margin-bottom: 30px;
-      color: #ddd;
-    }
-
-    .bonus-timer {
-      font-size: 1rem;
-      font-weight: bold;
-      color: #FF6347;
-      margin-bottom: 20px;
-      animation: pulse 2s infinite;
-    }
-
-    .register-button {
-      display: block;
-      width: 100%;
-      padding: 20px;
+    /* Estilo para el nuevo botón de WhatsApp */
+    .whatsapp-button {
+      background: linear-gradient(45deg, #25D366, #128C7E);
+      color: white;
+      font-weight: 700;
       font-size: 1.3rem;
-      font-weight: bold;
-      background: linear-gradient(45deg, #FFD700, #FF4500);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px;
       border: none;
       border-radius: 12px;
-      box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
-      color: #000;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: transform 0.3s ease;
+      animation: pulseMobile 2s infinite;
+      text-transform: uppercase;
     }
 
-    .register-button:hover {
+    .whatsapp-button:hover {
       transform: scale(1.05);
+      background: linear-gradient(45deg, #128C7E, #25D366);
     }
 
-    .testimonial {
-      margin-top: 25px;
-      font-size: 0.95rem;
-      color: #ccc;
+    .whatsapp-icon {
+      font-size: 1.7rem;
     }
 
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.6; }
-      100% { opacity: 1; }
+    @keyframes pulseMobile {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
     }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .bounce {
-      animation: bounce 1s infinite;
-    }
-
-    @media (max-width: 768px) {
-      .register-button {
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-        right: 20px;
-        z-index: 1000;
+    /* Responsive ajustes */
+    @media (max-width: 480px) {
+      .whatsapp-button {
+        font-size: 1.1rem;
+        padding: 14px;
       }
 
-      .container {
-        padding-bottom: 100px;
+      .whatsapp-icon {
+        font-size: 1.5rem;
       }
+    }
+
+    /* Honeypot oculto */
+    .honeypot-field {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1 class="headline">🎁 Activa tu Usuario y Recibí tu Bono</h1>
-    <p class="subtext">Creá tu cuenta en segundos y reclamá el bono exclusivo por WhatsApp</p>
+  <div class="background desktop-bg"></div>
+  <div class="background mobile-bg"></div>
+  <div class="blur-overlay"></div>
 
-    <div class="bonus-timer">
-      ⏳ Bono disponible por tiempo limitado: <span id="countdown">01:59</span>
-    </div>
-
-    <button class="register-button" onclick="registrarYRedirigir()">🚨 ACTIVAR BONO AHORA</button>
-
-    <p class="testimonial">+350 personas ya activaron su bono hoy 🎉</p>
+  <div class="floating-elements">
+    <div class="casino-element floating-coin">💎</div>
+    <div class="casino-element floating-coin">♠</div>
+    <div class="casino-element floating-coin">💰</div>
+    <div class="casino-element floating-coin">🎰</div>
   </div>
 
-  <!-- Facebook Pixel base code -->
+  <div class="container">
+    <div class="registration-card">
+      <div class="logo">
+        G<span class="highlight">♠</span>NAMOS
+      </div>
+
+      <h1 class="welcome-text">¡Únete a la Diversión!</h1>
+
+      <div class="bonus-badge">
+        🎁 20% EXTRA DE BONO 🎁
+      </div>
+
+      <form id="registrationForm">
+        <!-- Honeypot -->
+        <div class="honeypot-field">
+          <label>Dejar en blanco: <input type="text" name="website"></label>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="username">Tu Nombre o Apodo</label>
+          <input
+            type="text"
+            id="username"
+            class="form-input"
+            placeholder="Ingresa tu nombre o apodo"
+            required
+          />
+        </div>
+
+        <button type="submit" class="whatsapp-button">
+          <span class="whatsapp-icon">📲</span> ENVIAR MENSAJE
+        </button>
+      </form>
+    </div>
+  </div>
+
   <script>
-    !(function(f,b,e,v,n,t,s){
-      if(f.fbq)return;n=f.fbq=function(){
-        n.callMethod ?
-        n.callMethod.apply(n,arguments) : n.queue.push(arguments)
-      };
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src='https://connect.facebook.net/en_US/fbevents.js';
-      s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)
-    })(window, document, 'script');
-
-    const PIXEL_ID = '{{TU_PIXEL_ID}}';
-    fbq('init', PIXEL_ID);
-    fbq('track', 'PageView');
-  </script>
-
-  <!-- Anti-bot + evento personalizado -->
-  <script>
-    const API_URL = '/api/conversion';
-    const event_id = 'event_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-
-    function registrarYRedirigir() {
-      fbq('trackCustom', 'Contacto', {
-        eventID: event_id
-      });
-
-      // Datos Meta CAPI
-      const fbp = getCookie('_fbp');
-      const fbc = getCookie('_fbc') || `fb.1.${Date.now()}.${document.location.hostname}`;
-      const data = {
-        event_name: 'Contacto',
-        event_time: Math.floor(Date.now() / 1000),
-        action_source: 'website',
-        event_source_url: window.location.href,
-        event_id,
-        fbp, fbc
-      };
-
-      // Protección básica: no enviar si userAgent es bot
-      const isBot = /bot|crawl|slurp|spider/i.test(navigator.userAgent);
-      if (!isBot) {
-        fetch(API_URL, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(data)
-        }).then(() => {
-          // Redirige a WhatsApp
-          const mensaje = encodeURIComponent("Hola, quiero activar mi bono.");
-          window.location.href = `https://wa.me/549XXXXXXXXXX?text=${mensaje}`;
-        });
-      }
-    }
-
     function getCookie(name) {
       const value = `; ${document.cookie}`;
       const parts = value.split(`; ${name}=`);
       if (parts.length === 2) return parts.pop().split(';').shift();
+      return null;
     }
 
-    // Cuenta regresiva
-    function startCountdown(minutes) {
-      let time = minutes * 60;
-      const el = document.getElementById('countdown');
-      const interval = setInterval(() => {
-        const min = String(Math.floor(time / 60)).padStart(2, '0');
-        const sec = String(time % 60).padStart(2, '0');
-        el.textContent = `${min}:${sec}`;
-        time--;
-        if (time < 0) clearInterval(interval);
-      }, 1000);
+    function getFBC() {
+      const params = new URLSearchParams(window.location.search);
+      const fbclid = params.get('fbclid');
+      if (!fbclid) return null;
+      return `fb.1.${Date.now()}.${fbclid}`;
     }
 
-    startCountdown(2);
+    document.getElementById('registrationForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
 
-    // Animación al botón
-    setTimeout(() => {
-      document.querySelector('.register-button').classList.add('bounce');
-    }, 5000);
+      // Anti-bot honeypot check
+      const honeypot = document.querySelector('input[name="website"]').value;
+      if (honeypot) {
+        console.warn("Formulario bloqueado por sospecha de bot.");
+        return;
+      }
+
+      const username = document.getElementById('username').value.trim();
+      if (!username) {
+        alert('Por favor ingresa tu nombre o apodo');
+        return;
+      }
+
+      const fbp = getCookie('_fbp');
+      const fbc = getCookie('_fbc') || getFBC();
+      const event_id = `event_${Date.now()}_${Math.random().toString(36).substring(2, 10)}`;
+
+      try {
+        const response = await fetch('/api/capi', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event_name: 'Contact',
+            event_id,
+            event_source_url: window.location.href,
+            user_data: {
+              name: username,
+              phone: '5491125463125', // Reemplaza con tu número real
+            },
+            fbp,
+            fbc,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          console.log('✅ Evento enviado correctamente a Meta:', data);
+        } else {
+          console.error('❌ Error enviando evento a Meta:', data);
+        }
+      } catch (error) {
+        console.error('⚠️ Error en la comunicación con backend:', error);
+      }
+
+      // Redirigir a WhatsApp
+      const message = `Hola👋 mi nombre es ${username} y quiero un usuario😃`;
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappNumber = '5491125469875'; // Reemplaza con tu número real
+      const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+      window.open(whatsappURL, '_blank');
+    });
   </script>
-
-  <noscript>
-    <img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id={{TU_PIXEL_ID}}&ev=PageView&noscript=1"/>
-  </noscript>
 </body>
 </html>
