@@ -1,426 +1,201 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>¡Regístrate Ahora!</title>
-    <style>
-        /* --- TODO TU CSS ORIGINAL AQUÍ --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Arial', sans-serif;
-            height: 100vh;
-            overflow: hidden;
-            position: relative;
-        }
-        .background {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            filter: blur(3px);
-            z-index: -2;
-        }
-        .desktop-bg {
-            background-image: url('https://i.imgur.com/NDaA7My.jpeg');
-        }
-        .mobile-bg {
-            background-image: url('https://i.imgur.com/NUnyvdL.jpeg');
-            display: none;
-        }
-        .blur-overlay {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(46,8,91,0.8) 0%, rgba(100,15,205,0.6) 30%, rgba(46,8,91,0.8) 100%);
-            z-index: -1;
-        }
-        .container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-        }
-        .registration-card {
-            background: linear-gradient(145deg, rgba(100,15,205,0.95), rgba(46,8,91,0.95));
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            border: 2px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            text-align: center;
-            max-width: 450px;
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 0.8s ease-out;
-        }
-        .registration-card::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent);
-            animation: rotate 4s linear infinite;
-            z-index: -1;
-        }
-        .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(255,255,255,0.5);
-        }
-        .logo .highlight {
-            color: #FFD700;
-            text-shadow: 0 0 20px rgba(255,215,0,0.8);
-        }
-        .welcome-text {
-            color: #fff;
-            font-size: 1.4rem;
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-        .bonus-badge {
-            background: linear-gradient(45deg, #FFD700, #FFA500);
-            color: #2E085B;
-            padding: 12px 20px;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(255,215,0,0.4);
-            animation: pulse 2s infinite;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .form-group {
-            margin-bottom: 25px;
-            text-align: left;
-        }
-        .form-label {
-            color: #fff;
-            font-weight: 600;
-            margin-bottom: 8px;
-            display: block;
-            font-size: 1rem;
-        }
-        .form-input {
-            width: 100%;
-            padding: 15px 20px;
-            border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 12px;
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-            font-size: 1rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-        .form-input:focus {
-            outline: none;
-            border-color: #FFD700;
-            box-shadow: 0 0 20px rgba(255,215,0,0.3);
-            background: rgba(255,255,255,0.15);
-        }
-        .form-input::placeholder {
-            color: rgba(255,255,255,0.7);
-        }
-        .register-button {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(45deg, #FFD700, #FFA500);
-            color: #2E085B;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 5px 15px rgba(255,215,0,0.4);
-        }
-        .register-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255,215,0,0.6);
-            background: linear-gradient(45deg, #FFA500, #FFD700);
-        }
-        .register-button:active {
-            transform: translateY(0);
-        }
-        .floating-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .casino-element {
-            position: absolute;
-            opacity: 0.3;
-            animation: float 8s ease-in-out infinite;
-        }
-        .game-card {
-            width: 80px;
-            height: 60px;
-            background: linear-gradient(145deg, #FFD700, #FFA500);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: bold;
-            color: #2E085B;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-        .floating-coin {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(45deg, #FFD700, #FFA500);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: #2E085B;
-        }
-        .prize-element {
-            background: rgba(255,215,0,0.1);
-            border: 2px solid rgba(255,215,0,0.3);
-            border-radius: 10px;
-            padding: 8px;
-            font-size: 10px;
-            color: #FFD700;
-            font-weight: bold;
-        }
-        .casino-element:nth-child(1) {
-            top: 5%;
-            left: 5%;
-            animation-delay: 0s;
-        }
-        .casino-element:nth-child(2) {
-            top: 10%;
-            right: 10%;
-            animation-delay: 2s;
-        }
-        .casino-element:nth-child(3) {
-            top: 60%;
-            left: 8%;
-            animation-delay: 4s;
-        }
-        .casino-element:nth-child(4) {
-            bottom: 15%;
-            right: 5%;
-            animation-delay: 1s;
-        }
-        .casino-element:nth-child(5) {
-            top: 30%;
-            left: 15%;
-            animation-delay: 3s;
-        }
-        .casino-element:nth-child(6) {
-            top: 40%;
-            right: 20%;
-            animation-delay: 5s;
-        }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-        }
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-        /* Responsive */
-        @media (max-width: 768px) {
-            .desktop-bg {
-                display: none;
-            }
-            .mobile-bg {
-                display: block;
-            }
-            .registration-card {
-                padding: 30px 25px;
-                margin: 10px;
-            }
-            .logo {
-                font-size: 2rem;
-            }
-            .welcome-text {
-                font-size: 1.2rem;
-            }
-            .bonus-badge {
-                font-size: 1rem;
-                padding: 10px 15px;
-            }
-            .form-input {
-                padding: 12px 15px;
-            }
-            .register-button {
-                padding: 15px;
-                font-size: 1.1rem;
-            }
-        }
-        @media (max-width: 480px) {
-            .registration-card {
-                padding: 25px 20px;
-            }
-            .logo {
-                font-size: 1.8rem;
-            }
-            .welcome-text {
-                font-size: 1.1rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activa tu Bono</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #1a1a1a, #000);
+      color: #fff;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding-top: 60px;
+    }
+
+    .headline {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #FFD700;
+    }
+
+    .subtext {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      color: #ddd;
+    }
+
+    .bonus-timer {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #FF6347;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+    }
+
+    .register-button {
+      display: block;
+      width: 100%;
+      padding: 20px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      background: linear-gradient(45deg, #FFD700, #FF4500);
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+      color: #000;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .register-button:hover {
+      transform: scale(1.05);
+    }
+
+    .testimonial {
+      margin-top: 25px;
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .bounce {
+      animation: bounce 1s infinite;
+    }
+
+    @media (max-width: 768px) {
+      .register-button {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        z-index: 1000;
+      }
+
+      .container {
+        padding-bottom: 100px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="background desktop-bg"></div>
-    <div class="background mobile-bg"></div>
-    <div class="blur-overlay"></div>
+  <div class="container">
+    <h1 class="headline">🎁 Activa tu Usuario y Recibí tu Bono</h1>
+    <p class="subtext">Creá tu cuenta en segundos y reclamá el bono exclusivo por WhatsApp</p>
 
-    <div class="floating-elements">
-        <div class="casino-element floating-coin">💎</div>
-        <div class="casino-element floating-coin">♠</div>
-        <div class="casino-element floating-coin">💰</div>
-        <div class="casino-element floating-coin">🎰</div>
+    <div class="bonus-timer">
+      ⏳ Bono disponible por tiempo limitado: <span id="countdown">01:59</span>
     </div>
 
-    <div class="container">
-        <div class="registration-card">
-            <div class="logo">
-                G<span class="highlight">♠</span>NAMOS
-            </div>
+    <button class="register-button" onclick="registrarYRedirigir()">🚨 ACTIVAR BONO AHORA</button>
 
-            <h1 class="welcome-text">¡Únete a la Diversión!</h1>
+    <p class="testimonial">+350 personas ya activaron su bono hoy 🎉</p>
+  </div>
 
-            <div class="bonus-badge">
-                🎁 20% EXTRA DE BONO 🎁
-            </div>
+  <!-- Facebook Pixel base code -->
+  <script>
+    !(function(f,b,e,v,n,t,s){
+      if(f.fbq)return;n=f.fbq=function(){
+        n.callMethod ?
+        n.callMethod.apply(n,arguments) : n.queue.push(arguments)
+      };
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src='https://connect.facebook.net/en_US/fbevents.js';
+      s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)
+    })(window, document, 'script');
 
-            <form id="registrationForm">
-                <div class="form-group">
-                    <label class="form-label" for="username">⬇️INGRESA TU NOMBRE O APODO⬇️</label>
-                    <input
-                        type="text"
-                        id="username"
-                        class="form-input"
-                        placeholder="Ingresa tu nombre o apodo"
-                        required
-                    />
-                </div>
-                <label class="form-label">⬇️APRETA EN CREAR USUARIO PARA CONTINUAR POR WHATSAPP⬇️</label>
-                <button type="submit" class="register-button">
-                    🚀 CREAR USUARIO
-                </button>
-            </form>
-        </div>
-    </div>
+    const PIXEL_ID = '{{TU_PIXEL_ID}}';
+    fbq('init', PIXEL_ID);
+    fbq('track', 'PageView');
+  </script>
 
-    <script>
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-            return null;
-        }
+  <!-- Anti-bot + evento personalizado -->
+  <script>
+    const API_URL = '/api/conversion';
+    const event_id = 'event_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
 
-        function getFBC() {
-            const params = new URLSearchParams(window.location.search);
-            const fbclid = params.get('fbclid');
-            if (!fbclid) return null;
-            return `fb.1.${Date.now()}.${fbclid}`;
-        }
+    function registrarYRedirigir() {
+      fbq('trackCustom', 'Contacto', {
+        eventID: event_id
+      });
 
-        document.getElementById('registrationForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
+      // Datos Meta CAPI
+      const fbp = getCookie('_fbp');
+      const fbc = getCookie('_fbc') || `fb.1.${Date.now()}.${document.location.hostname}`;
+      const data = {
+        event_name: 'Contacto',
+        event_time: Math.floor(Date.now() / 1000),
+        action_source: 'website',
+        event_source_url: window.location.href,
+        event_id,
+        fbp, fbc
+      };
 
-            const username = document.getElementById('username').value.trim();
-            if (!username) {
-                alert('Por favor ingresa tu nombre o apodo');
-                return;
-            }
-
-            const fbp = getCookie('_fbp');
-            const fbc = getCookie('_fbc') || getFBC();
-
-            const event_id = `event_${Date.now()}_${Math.random()
-                .toString(36)
-                .substring(2, 10)}`;
-
-            try {
-                const response = await fetch('/api/capi', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        event_name: 'Contact',
-                        event_id,
-                        event_source_url: window.location.href,
-                        user_data: {
-                            name: username,
-                            phone: '5491125463125', // Reemplaza con tu número real
-                        },
-                        fbp,
-                        fbc,
-                    }),
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    console.log('✅ Evento enviado correctamente a Meta:', data);
-                } else {
-                    console.error('❌ Error enviando evento a Meta:', data);
-                }
-            } catch (error) {
-                console.error('⚠️ Error en la comunicación con backend:', error);
-            }
-
-            // Redirigir a WhatsApp
-            const message = `Hola👋 mi nombre es ${username} y quiero un usuario😃`;
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappNumber = '5491125469875'; // Reemplaza con tu número real
-            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-            window.open(whatsappURL, '_blank');
+      // Protección básica: no enviar si userAgent es bot
+      const isBot = /bot|crawl|slurp|spider/i.test(navigator.userAgent);
+      if (!isBot) {
+        fetch(API_URL, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(data)
+        }).then(() => {
+          // Redirige a WhatsApp
+          const mensaje = encodeURIComponent("Hola, quiero activar mi bono.");
+          window.location.href = `https://wa.me/549XXXXXXXXXX?text=${mensaje}`;
         });
-    </script>
+      }
+    }
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    // Cuenta regresiva
+    function startCountdown(minutes) {
+      let time = minutes * 60;
+      const el = document.getElementById('countdown');
+      const interval = setInterval(() => {
+        const min = String(Math.floor(time / 60)).padStart(2, '0');
+        const sec = String(time % 60).padStart(2, '0');
+        el.textContent = `${min}:${sec}`;
+        time--;
+        if (time < 0) clearInterval(interval);
+      }, 1000);
+    }
+
+    startCountdown(2);
+
+    // Animación al botón
+    setTimeout(() => {
+      document.querySelector('.register-button').classList.add('bounce');
+    }, 5000);
+  </script>
+
+  <noscript>
+    <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id={{TU_PIXEL_ID}}&ev=PageView&noscript=1"/>
+  </noscript>
 </body>
 </html>
