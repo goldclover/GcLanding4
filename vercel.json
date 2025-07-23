@@ -1,0 +1,12 @@
+
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/capi.js", "use": "@vercel/node" },
+    { "src": "index.html", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/capi", "dest": "api/capi.js" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}
